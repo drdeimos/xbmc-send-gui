@@ -1,0 +1,3 @@
+*.o
+*~
+/xbmc-send-gui
