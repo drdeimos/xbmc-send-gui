@@ -19,6 +19,11 @@ extern "C" void up_button_cl (GtkWidget *object);
 extern "C" void down_button_cl (GtkWidget *object);
 extern "C" void ok_button_cl (GtkWidget *object);
 extern "C" void back_button_cl (GtkWidget *object);
+extern "C" void home_button_cl (GtkWidget *object);
+extern "C" void info_button_cl (GtkWidget *object);
+extern "C" void menu_button_cl (GtkWidget *object);
+
+
 
 
 
@@ -100,4 +105,19 @@ void ok_button_cl (GtkWidget *object)
 void back_button_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Back\"");
+}
+
+void home_button_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"XBMC.ActivateWindow(Home)\"");
+}
+
+void info_button_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"Info\"");
+}
+
+void menu_button_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"ContextMenu\"");
 }
