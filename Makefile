@@ -5,8 +5,8 @@ CFLAGS=-Wall -g `pkg-config --cflags gtk+-3.0 gmodule-2.0`
 xbmc-send-gui: xbmc-send-gui.o
 	$(CC) $(LDLIBS) xbmc-send-gui.o -o xbmc-send-gui
 
-xbmc-send-gui.o: main.cpp
-	$(CC) $(CFLAGS) -c main.cpp -o xbmc-send-gui.o
+xbmc-send-gui.o: src/main.cpp
+	$(CC) $(CFLAGS) -c src/main.cpp -o xbmc-send-gui.o
 
 clean:
 	rm -f xbmc-send-gui

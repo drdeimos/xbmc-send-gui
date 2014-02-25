@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <cairo.h>
 #include <gtk/gtk.h>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
 
 #define UI_FILE "main_form.glade"
 
@@ -25,10 +27,12 @@ extern "C" void menu_button_cl (GtkWidget *object);
 
 
 
-
-
 int main( int argc, char **argv )
 {
+    boost::property_tree::ptree pt;
+    pt.put("host","192.168.1.5");
+    boost::property_tree::json_parser::write_json("config.json",pt);
+
     GError *error = NULL;
 
     // инициализация GTK+ 
