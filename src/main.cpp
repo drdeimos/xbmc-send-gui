@@ -5,34 +5,31 @@
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 
-#define UI_FILE "main_form.glade"
+#define MAIN_UI_FILE "main_form.glade"
+#define OPT_UI_FILE  "options_form.glade"
 
 // описание виджетов
 GtkBuilder *builder;
 GtkWidget *topWindow;
-GtkRadioButton *rbutRectangle, *rbutEllipse, *rbutTriangle;
-GtkDrawingArea *drawingarea;
+GtkWidget *OptionsWindow;
 
 // описание обработчиков сигналов
 extern "C" void topWindow_destroy_cb (GtkWidget *object, gpointer user_data);
-extern "C" void left_button_cl (GtkWidget *object);
-extern "C" void right_button_cl (GtkWidget *object);
-extern "C" void up_button_cl (GtkWidget *object);
-extern "C" void down_button_cl (GtkWidget *object);
-extern "C" void ok_button_cl (GtkWidget *object);
-extern "C" void back_button_cl (GtkWidget *object);
-extern "C" void home_button_cl (GtkWidget *object);
-extern "C" void info_button_cl (GtkWidget *object);
-extern "C" void menu_button_cl (GtkWidget *object);
+extern "C" void LeftButton_cl (GtkWidget *object);
+extern "C" void RightButton_cl (GtkWidget *object);
+extern "C" void UpButton_cl (GtkWidget *object);
+extern "C" void DownButton_cl (GtkWidget *object);
+extern "C" void OkButton_cl (GtkWidget *object);
+extern "C" void BackButton_cl (GtkWidget *object);
+extern "C" void HomeButton_cl (GtkWidget *object);
+extern "C" void InfoButton_cl (GtkWidget *object);
+extern "C" void MenuButton_cl (GtkWidget *object);
 
+extern "C" int options_button_cl (GtkWidget *object);
 
 
 int main( int argc, char **argv )
 {
-    boost::property_tree::ptree pt;
-    pt.put("host","192.168.1.5");
-    boost::property_tree::json_parser::write_json("config.json",pt);
-
     GError *error = NULL;
 
     // инициализация GTK+ 
@@ -42,7 +39,7 @@ int main( int argc, char **argv )
     builder = gtk_builder_new();
 
     // загрузка пользовательского интерфеса из файла, который мы создали в Glade 
-    if( ! gtk_builder_add_from_file( builder, UI_FILE, &error ) )
+    if( ! gtk_builder_add_from_file( builder, MAIN_UI_FILE, &error ) )
     {
         g_warning( "%s", error->message );
         g_free( error );
@@ -51,10 +48,6 @@ int main( int argc, char **argv )
   
    // связывание наших виджетов с описаннимем виджетов в GladeXML
    topWindow = GTK_WIDGET(gtk_builder_get_object(builder, "topWindow"));
-   rbutRectangle = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rbutRectangle"));
-   rbutEllipse = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rbutEllipse"));
-   rbutTriangle = GTK_RADIO_BUTTON(gtk_builder_get_object(builder, "rbutTriangle"));
-   drawingarea = GTK_DRAWING_AREA(gtk_builder_get_object(builder, "drawingarea"));
 
    // связываем сигналы с объектами графического интерфейса
    gtk_builder_connect_signals (builder, NULL);
@@ -81,47 +74,81 @@ void topWindow_destroy_cb (GtkWidget *object, gpointer user_data)
 
 // нажатие на кнопки
 
-void left_button_cl (GtkWidget *object)
+void LeftButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Left\"");
 }
 
-void right_button_cl (GtkWidget *object)
+void RightButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Right\"");
 }
 
-void up_button_cl (GtkWidget *object)
+void UpButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Up\"");
 }
 
-void down_button_cl (GtkWidget *object)
+void DownButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Down\"");
 }
 
-void ok_button_cl (GtkWidget *object)
+void OkButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Select\"");
 }
 
-void back_button_cl (GtkWidget *object)
+void BackButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Back\"");
 }
 
-void home_button_cl (GtkWidget *object)
+void HomeButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"XBMC.ActivateWindow(Home)\"");
 }
 
-void info_button_cl (GtkWidget *object)
+void InfoButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Info\"");
 }
 
-void menu_button_cl (GtkWidget *object)
+void MenuButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"ContextMenu\"");
+}
+
+int options_button_cl (GtkWidget *object)
+{
+   GError *error = NULL;
+
+   // создание нового GtkBuilder объекта
+   builder = gtk_builder_new();
+
+    // загрузка пользовательского интерфеса из файла, который мы создали в Glade 
+    if( ! gtk_builder_add_from_file( builder, OPT_UI_FILE, &error ) )
+    {
+        g_warning( "%s", error->message );
+        g_free( error );
+        return( 1 );
+    }
+  
+   // связывание наших виджетов с описаннимем виджетов в GladeXML
+   OptionsWindow = GTK_WIDGET(gtk_builder_get_object(builder, "OptionsWindow"));
+
+   // связываем сигналы с объектами графического интерфейса
+   gtk_builder_connect_signals (builder, NULL);
+
+   // освобождение памяти
+   g_object_unref( G_OBJECT( builder ) );
+   
+   // Показываем форму и виджеты на ней
+   gtk_widget_show( OptionsWindow ); 
+    
+   // запуск главного цикла приложения
+   gtk_main();
+
+   return( 0 );
+
 }
