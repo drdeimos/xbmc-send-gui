@@ -1,4 +1,4 @@
 *.o
 *~
-/xbmc-send-gui
+/src/xbmc-send-gui
 config.json

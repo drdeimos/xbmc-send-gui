@@ -24,6 +24,16 @@ extern "C" void BackButton_cl (GtkWidget *object);
 extern "C" void HomeButton_cl (GtkWidget *object);
 extern "C" void InfoButton_cl (GtkWidget *object);
 extern "C" void MenuButton_cl (GtkWidget *object);
+extern "C" void ZoomOutButton_cl (GtkWidget *object);
+extern "C" void ZoomInButton_cl (GtkWidget *object);
+extern "C" void VolDownButton_cl (GtkWidget *object);
+extern "C" void MuteButton_cl (GtkWidget *object);
+extern "C" void VolUpBotton_cl (GtkWidget *object);
+extern "C" void PauseBotton_cl (GtkWidget *object);
+extern "C" void PrevButton_cl (GtkWidget *object);
+extern "C" void NextButton_cl (GtkWidget *object);
+extern "C" void StopButton_cl (GtkWidget *object);
+extern "C" void info_button_cl (GtkWidget *object);
 
 extern "C" int options_button_cl (GtkWidget *object);
 
@@ -117,6 +127,56 @@ void InfoButton_cl (GtkWidget *object)
 void MenuButton_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"ContextMenu\"");
+}
+
+void ZoomOutButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"ZoomOut\"");
+}
+
+void ZoomInButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"ZoomIn\"");
+}
+
+void VolDownButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"VolumeDown\"");
+}
+
+void MuteButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"Mute\"");
+}
+
+void VolUpBotton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"VolumeUp\"");
+}
+
+void PauseBotton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"Pause\"");
+}
+
+void PrevButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"SkipPrevious\"");
+}
+
+void NextButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"SkipNext\"");
+}
+
+void StopButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"Stop\"");
+}
+
+void info_button_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"Info\"");
 }
 
 int options_button_cl (GtkWidget *object)
