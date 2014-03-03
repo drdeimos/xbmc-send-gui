@@ -33,7 +33,9 @@ extern "C" void PauseBotton_cl (GtkWidget *object);
 extern "C" void PrevButton_cl (GtkWidget *object);
 extern "C" void NextButton_cl (GtkWidget *object);
 extern "C" void StopButton_cl (GtkWidget *object);
-extern "C" void info_button_cl (GtkWidget *object);
+extern "C" void InfoButton_cl (GtkWidget *object);
+extern "C" void OsdButton_cl (GtkWidget *object);
+
 
 extern "C" int options_button_cl (GtkWidget *object);
 
@@ -177,6 +179,11 @@ void StopButton_cl (GtkWidget *object)
 void info_button_cl (GtkWidget *object)
 {
    system ("xbmc-send --host=\"192.168.1.5\" --action=\"Info\"");
+}
+
+void OsdButton_cl (GtkWidget *object)
+{
+   system ("xbmc-send --host=\"192.168.1.5\" --action=\"Osd\"");
 }
 
 int options_button_cl (GtkWidget *object)
